@@ -1,4 +1,3 @@
-// Helping to manage the weather app functionality, including fetching weather data, managing pinned cities, and handling UI interactions.
 async function getCountryFlag(country_code) {
     const country_code_formatted = country_code.toLowerCase()
     const flagUrl = `https://flagcdn.com/w40/${country_code_formatted}.png`;
@@ -230,6 +229,9 @@ function updatePinDisplay() {
     pinnedCities.forEach((city, index) => {
         const pinElement = document.createElement('div');
         pinElement.className = 'pin-item';
+        
+        pinList.appendChild(pinElement);
+        
         fetchCityFlag(city).then(flag => {
             if (editMode) {
                 pinElement.innerHTML = `
@@ -242,11 +244,9 @@ function updatePinDisplay() {
                 `;
                 pinElement.onclick = () => navigateToCity(city);
                 pinElement.style.cursor = 'pointer';
-            }            
-
-        pinList.appendChild(pinElement)
-    })
-});
+            }
+        });
+    });
 }
 
 async function navigateToCity(cityName) {
@@ -401,13 +401,40 @@ window.addEventListener('click', function(e) {
 });
 
 
-
 function isNight(currentDate) {
     const hour = currentDate.getHours();
     return hour < 6 || hour > 20;
 }
 
+function updateViewportHeight() {
+    const vh = window.innerHeight * 0.01;
+    document.documentElement.style.setProperty('--vh', `${vh}px`);
+}
 
+updateViewportHeight();
+window.addEventListener('resize', updateViewportHeight);
+window.addEventListener('orientationchange', () => {
+    setTimeout(updateViewportHeight, 100);
+});
+
+function addTouchSupport() {
+    document.addEventListener('touchstart', function(e) {
+        if (e.touches.length > 1) {
+            e.preventDefault();
+        }
+    }, { passive: false });
+
+    let lastTouchEnd = 0;
+    document.addEventListener('touchend', function(e) {
+        const now = (new Date()).getTime();
+        if (now - lastTouchEnd <= 300) {
+            e.preventDefault();
+        }
+        lastTouchEnd = now;
+    }, false);
+}
+
+addTouchSupport();
 
 let rainTimer;
 let lightningTimer;
@@ -740,7 +767,19 @@ function displayHourlyForecast(hourlyData) {
             <div class="hour-rain">${hour.rain}%</div>
         `;
         
-        hourElement.addEventListener('click', () => {
+        hourElement.addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            hourElement.style.transform = 'scale(0.95)';
+        });
+        
+        hourElement.addEventListener('touchend', (e) => {
+            e.preventDefault();
+            hourElement.style.transform = 'scale(1)';
+            openHourlyModal(hour);
+        });
+        
+        hourElement.addEventListener('click', (e) => {
+            if (e.type === 'click' && !e.detail) return;
             openHourlyModal(hour);
         });
         
@@ -763,11 +802,15 @@ function openHourlyModal(hourData) {
     document.getElementById('hourly-modal-weather-code').textContent = hourData.weather_code;
 
     modal.classList.add('show');
+    
+    document.body.style.overflow = 'hidden';
 }
 
 function closeHourlyModal() {
     const modal = document.getElementById('hourly-modal');
     modal.classList.remove('show');
+    
+    document.body.style.overflow = '';
 }
 
 function displayDailyForecast(dailyData) {
@@ -805,7 +848,19 @@ function displayDailyForecast(dailyData) {
             </div>
         `;
 
-        dayElement.addEventListener('click', () => {
+        dayElement.addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            dayElement.style.transform = 'scale(0.98)';
+        });
+        
+        dayElement.addEventListener('touchend', (e) => {
+            e.preventDefault();
+            dayElement.style.transform = 'scale(1)';
+            openDailyModal(day);
+        });
+
+        dayElement.addEventListener('click', (e) => {
+            if (e.type === 'click' && !e.detail) return;
             openDailyModal(day);
         });
 
@@ -828,11 +883,16 @@ function openDailyModal(dayData) {
     document.getElementById('modal-weather-code').textContent = dayData.weather_code;    
 
     modal.classList.add('show');
+    
+    document.body.style.overflow = 'hidden';
 }
 
 function closeDailyModal() {
     const modal = document.getElementById('daily-modal');
     modal.classList.remove('show');
+    
+    // Restore body scroll
+    document.body.style.overflow = '';
 }
 
 function displayExtendedWeather(data) {
@@ -938,6 +998,10 @@ window.addEventListener("DOMContentLoaded", function() {
 
     if (closeButton) {
         closeButton.addEventListener('click', closeDailyModal);
+        closeButton.addEventListener('touchend', (e) => {
+            e.preventDefault();
+            closeDailyModal();
+        });
     }
 
     if (modal) {
@@ -946,14 +1010,30 @@ window.addEventListener("DOMContentLoaded", function() {
                 closeDailyModal();
             }
         });
+        
+        modal.addEventListener('touchend', function(e) {
+            if (e.target === this) {
+                closeDailyModal();
+            }
+        });
     }
     
     if (closeHourlyButton) {
         closeHourlyButton.addEventListener('click', closeHourlyModal);
+        closeHourlyButton.addEventListener('touchend', (e) => {
+            e.preventDefault();
+            closeHourlyModal();
+        });
     }
 
     if (hourlyModal) {
         hourlyModal.addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeHourlyModal();
+            }
+        });
+        
+        hourlyModal.addEventListener('touchend', function(e) {
             if (e.target === this) {
                 closeHourlyModal();
             }
@@ -965,5 +1045,5 @@ window.addEventListener("DOMContentLoaded", function() {
             closeDailyModal();
             closeHourlyModal();
         }
-    })
+    });
 });
