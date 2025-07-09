@@ -936,36 +936,10 @@ window.addEventListener("DOMContentLoaded", function() {
 
     console.log('Pin system loaded');
 
-    if (closeButton) {
-        closeButton.addEventListener('click', closeDailyModal);
-    }
+    closeButton.addEventListener('click', () => {
+        closeDailyModal();
+    });
 
-    if (modal) {
-        modal.addEventListener('click', function(e) {
-            if (e.target === this) {
-                closeDailyModal();
-            }
-        });
-    }
-    
-    if (closeHourlyButton) {
-        closeHourlyButton.addEventListener('click', closeHourlyModal);
-    }
-
-    if (hourlyModal) {
-        hourlyModal.addEventListener('click', function(e) {
-            if (e.target === this) {
-                closeDailyModal();
-            }
-        });
-        
-        hourlyModal.addEventListener('touchend', function(e) {
-            if (e.target === this) {
-                closeHourlyModal();
-            }
-        });
-    }
-    
     closeHourlyButton.addEventListener('click', () => {
         closeHourlyModal();
     });
