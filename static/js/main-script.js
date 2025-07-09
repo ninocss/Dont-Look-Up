@@ -929,20 +929,23 @@ window.addEventListener("DOMContentLoaded", function() {
     eventListeners();
 
     const closeButton = document.getElementById('close-daily-modal');
-    const modal = document.getElementById('daily-modal');
-
     const closeHourlyButton = document.getElementById('close-hourly-modal');
-    const hourlyModal = this.document.getElementById('hourly-modal');
 
     console.log('Pin system loaded');
 
-    closeButton.addEventListener('click', () => {
-        closeDailyModal();
-    });
+    if (closeButton) {
+        closeButton.addEventListener('click', () => {
+            console.log("trying to close daily")
+            closeDailyModal();
+        });
+    }
 
-    closeHourlyButton.addEventListener('click', () => {
-        closeHourlyModal();
-    });
+    if (closeHourlyButton) {
+        closeHourlyButton.addEventListener('click', () => {
+            console.log("trying to close hourly")
+            closeHourlyModal();
+        });
+    }
 
     document.addEventListener('keydown', function(e) {
         if (e.key === 'Escape') {
