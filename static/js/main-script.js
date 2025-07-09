@@ -996,13 +996,9 @@ window.addEventListener("DOMContentLoaded", function() {
 
     console.log('Pin system loaded');
 
-    if (closeButton) {
-        closeButton.addEventListener('click', closeDailyModal);
-        closeButton.addEventListener('touchend', (e) => {
-            e.preventDefault();
-            closeDailyModal();
-        });
-    }
+    closeButton.addEventListener('click', () => {
+        closeDailyModal();
+    })
 
     if (modal) {
         modal.addEventListener('click', function(e) {
@@ -1018,27 +1014,9 @@ window.addEventListener("DOMContentLoaded", function() {
         });
     }
     
-    if (closeHourlyButton) {
-        closeHourlyButton.addEventListener('click', closeHourlyModal);
-        closeHourlyButton.addEventListener('touchend', (e) => {
-            e.preventDefault();
-            closeHourlyModal();
-        });
-    }
-
-    if (hourlyModal) {
-        hourlyModal.addEventListener('click', function(e) {
-            if (e.target === this) {
-                closeHourlyModal();
-            }
-        });
-        
-        hourlyModal.addEventListener('touchend', function(e) {
-            if (e.target === this) {
-                closeHourlyModal();
-            }
-        });
-    }
+    closeHourlyButton.addEventListener('click', () => {
+        closeHourlyModal();
+    });
 
     document.addEventListener('keydown', function(e) {
         if (e.key === 'Escape') {
