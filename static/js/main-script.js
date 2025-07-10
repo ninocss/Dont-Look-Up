@@ -1,3 +1,4 @@
+// Helping to manage the weather app functionality, including fetching weather data, managing pinned cities, and handling UI interactions.
 async function getCountryFlag(country_code) {
     const country_code_formatted = country_code.toLowerCase()
     const flagUrl = `https://flagcdn.com/w40/${country_code_formatted}.png`;
@@ -230,20 +231,25 @@ function updatePinDisplay() {
         const pinElement = document.createElement('div');
         pinElement.className = 'pin-item';
         
+        if (editMode) {
+            pinElement.innerHTML = `
+                <span class="pin-name isediting" onclick="removePin(${index})">${city}<img src="" alt="Flag of ${city}" class="pin-flag" style="display:none;"></span>
+            `;
+        } else {
+            pinElement.innerHTML = `
+                <span class="pin-name">${city}<img src="" alt="Flag of ${city}" class="pin-flag" style="display:none;"></span>
+            `;
+            pinElement.onclick = () => navigateToCity(city);
+            pinElement.style.cursor = 'pointer';
+        }
+        
         pinList.appendChild(pinElement);
         
         fetchCityFlag(city).then(flag => {
-            if (editMode) {
-                pinElement.innerHTML = `
-                    <span class="pin-name isediting" onclick="removePin(${index})">${city}<img src="${flag}" alt="Flag of ${city}" class="pin-flag"></span>
-                `;
-            
-            } else {
-                pinElement.innerHTML = `
-                    <span class="pin-name">${city}<img src="${flag}" alt="Flag of ${city}" class="pin-flag"></span>
-                `;
-                pinElement.onclick = () => navigateToCity(city);
-                pinElement.style.cursor = 'pointer';
+            const flagImg = pinElement.querySelector('.pin-flag');
+            if (flagImg && flag) {
+                flagImg.src = flag;
+                flagImg.style.display = 'inline';
             }
         });
     });
@@ -929,21 +935,34 @@ window.addEventListener("DOMContentLoaded", function() {
     eventListeners();
 
     const closeButton = document.getElementById('close-daily-modal');
+    const modal = document.getElementById('daily-modal');
+
     const closeHourlyButton = document.getElementById('close-hourly-modal');
+    const hourlyModal = this.document.getElementById('hourly-modal');
 
     console.log('Pin system loaded');
 
     if (closeButton) {
-        closeButton.addEventListener('click', () => {
-            console.log("trying to close daily")
-            closeDailyModal();
-        });
+        closeButton.addEventListener('click', closeDailyModal);
     }
 
+    if (modal) {
+        modal.addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeDailyModal();
+            }
+        });
+    }
+    
     if (closeHourlyButton) {
-        closeHourlyButton.addEventListener('click', () => {
-            console.log("trying to close hourly")
-            closeHourlyModal();
+        closeHourlyButton.addEventListener('click', closeHourlyModal);
+    }
+
+    if (hourlyModal) {
+        hourlyModal.addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeHourlyModal();
+            }
         });
     }
 
@@ -952,5 +971,5 @@ window.addEventListener("DOMContentLoaded", function() {
             closeDailyModal();
             closeHourlyModal();
         }
-    });
+    })
 });
