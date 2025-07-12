@@ -946,24 +946,34 @@ window.addEventListener("DOMContentLoaded", function() {
         closeButton.addEventListener('click', closeDailyModal);
     }
 
-    if (modal) {
-        modal.addEventListener('click', function(e) {
+    function addModalCloseListeners(modalElement, closeFn) {
+        if (!modalElement) return;
+        modalElement.addEventListener('click', function(e) {
             if (e.target === this) {
-                closeDailyModal();
+                closeFn();
             }
         });
+        modalElement.addEventListener('touchstart', function(e) {
+            if (e.target === this) {
+                closeFn();
+            }
+        });
+    }
+
+    if (modal) {
+        addModalCloseListeners(modal, closeDailyModal);
+    }
+    
+    if (closeButton) {
+        closeButton.addEventListener('click', closeDailyModal);
+    }
+
+    if (hourlyModal) {
+        addModalCloseListeners(hourlyModal, closeHourlyModal);
     }
     
     if (closeHourlyButton) {
         closeHourlyButton.addEventListener('click', closeHourlyModal);
-    }
-
-    if (hourlyModal) {
-        hourlyModal.addEventListener('click', function(e) {
-            if (e.target === this) {
-                closeHourlyModal();
-            }
-        });
     }
 
     document.addEventListener('keydown', function(e) {
