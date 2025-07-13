@@ -987,6 +987,33 @@ function displayExtendedWeather(data) {
     }
 }
 
+let defaultBgActive = false;
+
+let lastWeatherSceneId = null;
+
+function toggleDefaultBackground() {
+    const defaultBg = document.getElementById('thunderstorm-background');
+    if (!defaultBgActive) {
+        const activeScene = document.querySelector('.background-scene.active, .rain-background.active, .cloudy-background.active, .fog-background.active, .snow-background.active, .freezing-background.active, .thunderstorm-background.active, .hail-background.active, .sunny-background.active');
+        if (activeScene) {
+            lastWeatherSceneId = activeScene.id;
+        } else {
+            lastWeatherSceneId = null;
+        }
+        deactivateAllScenes();
+        if (defaultBg) {
+            defaultBg.classList.add('active');
+            defaultBgActive = true;
+        }
+    } else {
+        defaultBgActive = false;
+        if (defaultBg) defaultBg.classList.remove('active');
+        if (lastWeatherSceneId) {
+            activateScene(lastWeatherSceneId);
+        }
+    }
+}
+
 document.getElementById('weather-app').addEventListener('submit', async function(e) {
     e.preventDefault();
 });
