@@ -13,7 +13,8 @@
     <div class="dropdown-container">
         <button class="menu-button" onclick="toggleDropdown()">☰</button>
         <div class="dropdown-menu" id="dropdown-menu">
-            <a href="https://ninoio.gay/">🏠 Homepage</a>
+            <a href="#" onclick="setDefaultBackground(); return false;">🎨 Static style</a>
+            <a href="https://ninoio.xyz/" target="_blank" rel="noopener">🏠 Homepage</a>
             <a href="https://github.com/ninocss">🐈‍⬛ Github</a>
             <a href="/templates/privacy.html">🕵️ Privacy</a>
         </div>
@@ -126,6 +127,37 @@
 
         <div class="rain" id="storm-rain-effect"></div>
         <div class="lightning" id="lightning-flash"></div>
+    </div>
+
+    <div class="hail-background" id="hail-background">
+        <div class="rain-cloud rain-cloud1"></div>
+        <div class="rain-cloud rain-cloud2"></div>
+        <div class="rain-cloud rain-cloud3"></div>
+
+        <div class="rain" id="hail-rain-effect"></div>
+        <div class="lightning" id="hail-lightning-flash"></div>
+        
+        <!-- Hail particles -->
+        <div class="hail-container">
+            <div class="hailstone" style="left: 10%; animation-delay: 0s;"></div>
+            <div class="hailstone" style="left: 20%; animation-delay: 0.3s;"></div>
+            <div class="hailstone" style="left: 30%; animation-delay: 0.6s;"></div>
+            <div class="hailstone" style="left: 40%; animation-delay: 0.9s;"></div>
+            <div class="hailstone" style="left: 50%; animation-delay: 1.2s;"></div>
+            <div class="hailstone" style="left: 60%; animation-delay: 1.5s;"></div>
+            <div class="hailstone" style="left: 70%; animation-delay: 1.8s;"></div>
+            <div class="hailstone" style="left: 80%; animation-delay: 2.1s;"></div>
+            <div class="hailstone" style="left: 90%; animation-delay: 2.4s;"></div>
+            <div class="hailstone" style="left: 15%; animation-delay: 2.7s;"></div>
+            <div class="hailstone" style="left: 25%; animation-delay: 3s;"></div>
+            <div class="hailstone" style="left: 35%; animation-delay: 3.3s;"></div>
+            <div class="hailstone" style="left: 45%; animation-delay: 3.6s;"></div>
+            <div class="hailstone" style="left: 55%; animation-delay: 3.9s;"></div>
+            <div class="hailstone" style="left: 65%; animation-delay: 4.2s;"></div>
+            <div class="hailstone" style="left: 75%; animation-delay: 4.5s;"></div>
+            <div class="hailstone" style="left: 85%; animation-delay: 4.8s;"></div>
+            <div class="hailstone" style="left: 95%; animation-delay: 5.1s;"></div>
+        </div>
     </div>
 
     <div class="cloudy-background" id="cloudy-background">
@@ -330,6 +362,8 @@
             </div>
 
             <small style="font-style: italic; color: rgba(255,255,255,0.7);">Source: Open Meteo API</small>
+            <br>
+            <small style="font-style: italic; color: rgba(255,255,255,0.7);">Made by nino.css</small>
         </div>
     </form>
 

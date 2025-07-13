@@ -979,3 +979,36 @@ window.addEventListener("DOMContentLoaded", function() {
         }
     })
 });
+
+function setDefaultBackground() {
+    const defaultBg = document.getElementById('thunderstorm-background');
+    if (!defaultBg) return;
+
+    if (defaultBg.classList.contains('active')) {
+        const weatherDisplay = document.getElementById('weather-display');
+        if (weatherDisplay && weatherDisplay.classList.contains('show')) {
+            let weatherCode = null;
+
+            if (window.globalDailyForecast && window.globalDailyForecast.length > 0) {
+                weatherCode = window.globalDailyForecast[0].weather_code;
+            }
+            const weatherDescEl = document.getElementById('weather-desc');
+            if (weatherDescEl) {
+                const desc = weatherDescEl.textContent;
+                for (const [code, info] of Object.entries(weatherCodes)) {
+                    if (info.desc === desc) {
+                        weatherCode = parseInt(code, 10);
+                        break;
+                    }
+                }
+            }
+            const bg = weatherCodes[weatherCode]?.bg || 'sunny-background';
+            activateScene(bg);
+        } else {
+            activateScene('sunny-background');
+        }
+    } else {
+        deactivateAllScenes();
+        defaultBg.classList.add('active');
+    }
+}
