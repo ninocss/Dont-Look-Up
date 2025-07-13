@@ -67,13 +67,17 @@ async function fetchExtendedWeatherData(city) {
         const weatherResponse = await fetch(`https://api.open-meteo.com/v1/forecast?${params}`);
         const forecast = await weatherResponse.json();
 
+        const windyIframe = document.getElementById('windy-embed');
+        if (windyIframe && latitude && longitude) {
+            const windyUrl = `https://embed.windy.com/embed2.html?lat=${latitude}&lon=${longitude}&detailLat=${latitude}&detailLon=${longitude}&width=650&height=450&zoom=9&level=surface&overlay=rain&product=ecmwf&menu=&message=&marker=&calendar=now&pressure=&type=map&location=coordinates&detail=&metricWind=default&metricTemp=default&radarRange=-1`;
+            windyIframe.src = windyUrl;
+        }
+
         return processWeatherData(forecast, name, flag, country);
     } catch (error) {
         throw new Error(`Failed to fetch weather data: ${error.message}`);
     }
 }
-
-//
 
 function clearAllPins() {
     pinnedCities = [];

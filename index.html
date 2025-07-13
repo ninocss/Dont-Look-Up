@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <link rel="icon" href="/static/images/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="static/css/styles.css">
+    <script src="https://kit.fontawesome.com/d458de1ab4.js" crossorigin="anonymous"></script>
 </head>
 <body>
     <div class="dropdown-container">
@@ -15,7 +16,6 @@
             <a href="https://ninoio.gay/">🏠 Homepage</a>
             <a href="https://github.com/ninocss">🐈‍⬛ Github</a>
             <a href="/templates/privacy.html">🕵️ Privacy</a>
-            <a href="/index.html">☁️ Weather</a>
         </div>
     </div>
 
@@ -273,7 +273,7 @@
 
         <div class="search-bar">
             <input type="text" id="city-input" placeholder="Enter a city here..." autocomplete="off">
-            <button id="search-button" type="submit">🔍</button>
+            <button id="search-button" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
         </div>
 
         <div class="pinned-section" id="pinned-section">
@@ -283,7 +283,7 @@
             
             <div class="blur-overlay"></div>
             <button id="edit-pins-button" type="button" class="edit-pins-btn" style="display: none;">
-                🗑️
+                <i class="fa-solid fa-trash-can"></i>
             </button>
         </div>
 
@@ -306,6 +306,11 @@
             <h3>Weekly Forecast</h3>
             <div class="daily-forecast" id="daily-forecast"></div>
 
+            <h3>Weather Map</h3>
+            <iframe class="windy-embed" id="windy-embed"
+                src="https://embed.windy.com/embed2.html?lat=69&lon=420&detailLat=161&detailLon=161&width=650&height=450&zoom=8&level=surface&overlay=rain&product=ecmwf&menu=&message=&marker=&calendar=now&pressure=&type=map&location=coordinates&detail=&metricWind=default&metricTemp=default&radarRange=-1">
+            </iframe>
+            <small style="font-style: italic; color: rgba(255,255,255,0.7);">Source: Windy.com</small>
         
             <h3>Weather Details</h3>
             <div class="details">

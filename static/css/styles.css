@@ -2040,3 +2040,39 @@ hr {
     font-size: 1.13em;
     color: var(--detail-value-color);
 }
+
+.windy-embed {
+    width: 100%;
+    max-width: 650px;
+    height: 450px;
+    border: none;
+    border-radius: 18px;
+    margin: 24px auto 0 auto;
+    display: block;
+    box-shadow: 0 8px 32px var(--box-shadow-color);
+    background: var(--card-background-color);
+    transition: box-shadow 0.3s, transform 0.3s;
+    z-index: 12;
+}
+
+.windy-embed:focus {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+}
+
+@media (max-width: 700px) {
+    .windy-embed {
+        max-width: 98vw;
+        height: 320px;
+        border-radius: 14px;
+    }
+}
+
+@media (max-width: 480px) {
+    .windy-embed {
+        max-width: 100vw;
+        height: 220px;
+        border-radius: 10px;
+        margin-top: 16px;
+    }
+}
