@@ -424,16 +424,24 @@ const waterContainer = document.getElementById('water-container');
 function createRaindrops() {
     const rainEffect = document.getElementById('rain-effect');
     if (!rainEffect) return;
-    
-    rainEffect.innerHTML = '';
 
-    for (let i = 0; i < 150; i++) {
-        const drop = document.createElement('div');
-        drop.className = 'raindrop';
-        drop.style.left = Math.random() * 100 + '%';
+    const dropCount = 100;
+    if (rainEffect.childElementCount !== dropCount) {
+        rainEffect.innerHTML = '';
+        const fragment = document.createDocumentFragment();
+        for (let i = 0; i < dropCount; i++) {
+            const drop = document.createElement('div');
+            drop.className = 'raindrop';
+            fragment.appendChild(drop);
+        }
+        rainEffect.appendChild(fragment);
+    }
+
+    for (let i = 0; i < dropCount; i++) {
+        const drop = rainEffect.children[i];
+        drop.style.left = (Math.random() * 100) + '%';
         drop.style.animationDuration = (Math.random() * 0.5 + 0.5) + 's';
-        drop.style.animationDelay = Math.random() * 2 + 's';
-        rainEffect.appendChild(drop);
+        drop.style.animationDelay = (Math.random() * 2) + 's';
     }
 }
 
@@ -451,16 +459,6 @@ function createScreenDrops() {
         drop.style.animationDelay = Math.random() * 3 + 's';
         screenDrops.appendChild(drop);
     }
-}
-
-function triggerLightning() {
-    const lightning = document.getElementById('lightning');
-    if (!lightning) return;
-    
-    lightning.classList.add('flash');
-    setTimeout(() => {
-        lightning.classList.remove('flash');
-    }, 300);
 }
 
 function activateWaterWaves() {
@@ -490,12 +488,6 @@ function activateRainScene() {
 
     createRaindrops();
     createScreenDrops();
-
-    lightningTimer = setInterval(() => {
-        if (Math.random() < 0.3) {
-            triggerLightning();
-        }
-    }, 3000);
 }
 
 function activateSunnyScene() {
