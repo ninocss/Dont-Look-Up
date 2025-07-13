@@ -1353,6 +1353,7 @@ hr {
         flex-direction: row;
         align-items: center;
         justify-content: center;
+        position: relative;
     }
     .search-bar input[type="text"] {
         width: 70%;
