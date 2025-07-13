@@ -2485,7 +2485,6 @@ hr {
 
 @media (max-width: 480px) {
     .autocomplete-items {
-        top: 25dvh;
         border-radius: 10px;
         font-size: 0.97em;
         max-height: 180px;
