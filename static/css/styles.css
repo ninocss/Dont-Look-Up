@@ -2488,6 +2488,8 @@ hr {
         border-radius: 10px;
         font-size: 0.97em;
         max-height: 180px;
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
     }
     .autocomplete-item {
         padding: 10px 14px;
