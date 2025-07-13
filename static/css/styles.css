@@ -17,7 +17,7 @@
 body {
     font-family: "Segoe UI", "Roboto", Arial, sans-serif;
     font-weight: 400;
-    min-height: 100vh;
+    min-height: 100dvh;
     margin: 0;
     color: var(--font-color);
     display: flex;
@@ -271,7 +271,7 @@ body {
 
 @keyframes snowfall {
     0% { transform: translateY(-10px); opacity: 0.8; }
-    100% { transform: translateY(100vh); opacity: 0; }
+    100% { transform: translateY(100dvh); opacity: 0; }
 }
 
 .freezing-background {
@@ -342,7 +342,7 @@ body {
         opacity: 1;
     }
     100% {
-        transform: translateY(calc(100vh + 100px));
+        transform: translateY(calc(100dvh + 100px));
         opacity: 0;
     }
 }
@@ -1987,7 +1987,7 @@ hr {
     padding: 25px 20px 20px 20px;
     max-width: 500px;
     width: 90%;
-    max-height: 80vh;
+    max-height: 80dvh;
     overflow-y: auto;
     border: 0px;
     color: var(--font-color);
@@ -2235,7 +2235,7 @@ hr {
 
 @keyframes hailfall {
     0% {
-        transform: translateY(-100vh) rotate(0deg);
+        transform: translateY(-100dvh) rotate(0deg);
         opacity: 0;
     }
     10% {
@@ -2245,7 +2245,7 @@ hr {
         opacity: 0.9;
     }
     100% {
-        transform: translateY(100vh) rotate(360deg);
+        transform: translateY(100dvh) rotate(360deg);
         opacity: 0;
     }
 }
@@ -2485,11 +2485,10 @@ hr {
 
 @media (max-width: 480px) {
     .autocomplete-items {
+        top: 25dvh;
         border-radius: 10px;
         font-size: 0.97em;
         max-height: 180px;
-        backdrop-filter: blur(20px);
-        -webkit-backdrop-filter: blur(20px);
     }
     .autocomplete-item {
         padding: 10px 14px;
