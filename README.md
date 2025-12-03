@@ -1,12 +1,11 @@
 # Weather App
 
-A clean and minimal weather application with smooth animations and an elegant homepage.
+A clean and minimal weather application with smooth animations.
 
 ## Features
 
 - **Clean Design** - Minimalist interface focused on essential weather information
 - **Smooth Animations** - Fluid transitions and micro-interactions throughout the app
-- **Homepage** - Welcoming landing page with intuitive navigation
 - **Real-time Weather** - Current weather conditions and forecasts
 - **Responsive** - Works seamlessly across all devices
 
